@@ -18,10 +18,12 @@ model Order {
   id         String      @id @default(uuid())
   title      String
   createdAt  DateTime    @default(now())
-  //updatedAt  DateTime    @default(now()) @updatedAt
+  updatedAt  DateTime    @default(now()) @updatedAt
   Courier    Courier?    @relation(fields: [courierId], references: [id])
   courierId  String?
   orderUnits OrderUnit[]
+  Status     Status?     @relation(fields: [statusId], references: [id])
+  statusId   String?
 }
 
 model Courier {
@@ -56,13 +58,14 @@ model FoodSpot {
 }
 
 model Status {
-  id       Int    @id @default(autoincrement())
+  id       String     @id @default(uuid())
   StatName String
-
+  orders   Order[]
 }
 
 model Authorization {
-  login    String @unique
+  id       String    @id @default(uuid())
+  login    String    @unique
   password String
 
 }

@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Order {
+  id         String      @id @default(uuid())
+  title      String      
+  createdAt  DateTime    @default(now())
+  //updatedAt  DateTime    @default(now()) @updatedAt
+  Courier    Courier?    @relation(fields: [courierId], references: [id])
+  courierId  String?
+  orderUnits OrderUnit[]
+}
+
+model Courier {
+  id        String      @id @default(uuid())
+  name      String
+  order     Order[]
+  //createdAt DateTime    @default(now())
+  //updatedAt DateTime    @default(now()) @updatedAt
+
+}
+
+model OrderUnit {
+  id        String      @id @default(uuid())
+  title     String
+  amount    Int
+  Order     Order?      @relation(fields: [orderId], references: [id])
+  orderId   String?
+ // FoodSpot  FoodSpot//?  //@relation(fields: [foodspotId], references: [id])
+  FoodSpotId String?
+  //createdAt DateTime    @default(now())
+  //updatedAt DateTime    @default(now()) @updatedAt
+
+}
+
+model FoodSpot{
+  id        String      @id @default(uuid())
+  title     String
+  
+}
+
+model Status {
+id          Int        @id @default(autoincrement())
+StatName    String
+
+}
+
+model Authorization {
+login     String        @unique
+password  String
+
+}

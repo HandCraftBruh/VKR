@@ -6,9 +6,12 @@ Table Order {
   id String [pk]
   title String [not null]
   createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
   Courier Courier
   courierId String
   orderUnits OrderUnit [not null]
+  Status Status
+  statusId String
 }
 
 Table Courier {
@@ -23,10 +26,8 @@ Table OrderUnit {
   amount Int [not null]
   Order Order
   orderId String
-  status Status
   FoodSpot FoodSpot
   foodSpotId String
-  statusId Int
 }
 
 Table FoodSpot {
@@ -36,20 +37,21 @@ Table FoodSpot {
 }
 
 Table Status {
-  id Int [pk, increment]
+  id String [pk]
   StatName String [not null]
-  OrderUnit OrderUnit [not null]
+  orders Order [not null]
 }
 
 Table Authorization {
+  id String [pk]
   login String [unique, not null]
   password String [not null]
 }
 
 Ref: Order.courierId > Courier.id
 
-Ref: OrderUnit.orderId > Order.id
+Ref: Order.statusId > Status.id
 
-Ref: OrderUnit.statusId > Status.id
+Ref: OrderUnit.orderId > Order.id
 
 Ref: OrderUnit.foodSpotId > FoodSpot.id

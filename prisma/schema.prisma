@@ -16,7 +16,7 @@ datasource db {
 
 model Order {
   id         String      @id @default(uuid())
-  title      String      
+  title      String
   createdAt  DateTime    @default(now())
   //updatedAt  DateTime    @default(now()) @updatedAt
   Courier    Courier?    @relation(fields: [courierId], references: [id])
@@ -25,41 +25,44 @@ model Order {
 }
 
 model Courier {
-  id        String      @id @default(uuid())
-  name      String
-  order     Order[]
+  id    String  @id @default(uuid())
+  name  String
+  order Order[]
   //createdAt DateTime    @default(now())
   //updatedAt DateTime    @default(now()) @updatedAt
 
 }
 
 model OrderUnit {
-  id        String      @id @default(uuid())
-  title     String
-  amount    Int
-  Order     Order?      @relation(fields: [orderId], references: [id])
-  orderId   String?
- // FoodSpot  FoodSpot//?  //@relation(fields: [foodspotId], references: [id])
-  FoodSpotId String?
+  id      String  @id @default(uuid())
+  title   String
+  amount  Int
+  Order   Order?  @relation(fields: [orderId], references: [id])
+  orderId String?
+  // FoodSpot  FoodSpot//?  //@relation(fields: [foodspotId], references: [id])
+  // FoodSpotId String?
   //createdAt DateTime    @default(now())
   //updatedAt DateTime    @default(now()) @updatedAt
 
+  FoodSpot   FoodSpot? @relation(fields: [foodSpotId], references: [id])
+  foodSpotId String?
 }
 
-model FoodSpot{
-  id        String      @id @default(uuid())
-  title     String
-  
+model FoodSpot {
+  id         String      @id @default(uuid())
+  title      String
+  orderUnits OrderUnit[]
+
 }
 
 model Status {
-id          Int        @id @default(autoincrement())
-StatName    String
+  id       Int    @id @default(autoincrement())
+  StatName String
 
 }
 
 model Authorization {
-login     String        @unique
-password  String
+  login    String @unique
+  password String
 
 }

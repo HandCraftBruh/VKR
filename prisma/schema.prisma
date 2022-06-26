@@ -41,11 +41,8 @@ model OrderUnit {
   amount  Int
   Order   Order?  @relation(fields: [orderId], references: [id])
   orderId String?
-  // FoodSpot  FoodSpot//?  //@relation(fields: [foodspotId], references: [id])
-  // FoodSpotId String?
   //createdAt DateTime    @default(now())
   //updatedAt DateTime    @default(now()) @updatedAt
-
   FoodSpot   FoodSpot? @relation(fields: [foodSpotId], references: [id])
   foodSpotId String?
 }

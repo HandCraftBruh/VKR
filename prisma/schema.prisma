@@ -56,7 +56,7 @@ model FoodSpot {
 
 model Status {
   id       String     @id @default(uuid())
-  StatName String
+  title    String
   orders   Order[]
 }
 

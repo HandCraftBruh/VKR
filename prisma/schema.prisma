@@ -30,8 +30,8 @@ model Courier {
   id    String  @id @default(uuid())
   name  String
   order Order[]
-  //createdAt DateTime    @default(now())
-  //updatedAt DateTime    @default(now()) @updatedAt
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @default(now()) @updatedAt
 
 }
 
@@ -41,8 +41,8 @@ model OrderUnit {
   amount  Int
   Order   Order?  @relation(fields: [orderId], references: [id])
   orderId String?
-  //createdAt DateTime    @default(now())
-  //updatedAt DateTime    @default(now()) @updatedAt
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @default(now()) @updatedAt
   FoodSpot   FoodSpot? @relation(fields: [foodSpotId], references: [id])
   foodSpotId String?
 }
